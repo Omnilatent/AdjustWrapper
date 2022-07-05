@@ -1,0 +1,16 @@
+{
+    "name": "Omnilatent.AdjustUnity",
+    "rootNamespace": "",
+    "references": [
+        "com.adjust.sdk"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

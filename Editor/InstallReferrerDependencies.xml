@@ -1,0 +1,9 @@
+<dependencies>
+  <androidPackages>
+    <androidPackage spec="com.android.installreferrer:installreferrer:2.2">
+      <repositories>
+        <repository>https://dl.google.com/dl/android/maven2/</repository>
+      </repositories>
+    </androidPackage>
+  </androidPackages>
+</dependencies>

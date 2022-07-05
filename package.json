@@ -1,0 +1,14 @@
+{
+    "name": "com.omnilatent.adjustunity",
+    "displayName": "Adjust Wrapper",
+    "version": "0.1.0",
+    "unity": "2018.1",
+    "description": "Adjust Wrapper for Unity",
+    "keywords": ["adjust", "wrapper"],
+    "category": "Wrapper",
+    "author": {
+        "name": "Trong",
+        "email": "nguyentrong101094@gmail.com",
+        "url": "https://github.com/nguyentrong101094"
+  }
+}
