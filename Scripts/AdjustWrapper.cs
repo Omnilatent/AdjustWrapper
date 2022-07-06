@@ -7,10 +7,34 @@ namespace Omnilatent.AdjustUnity
 {
     public class AdjustWrapper : MonoBehaviour
     {
+        [SerializeField] bool initializeAutomatically = true;
         [SerializeField] string appToken;
         [SerializeField] AdjustLogLevel debugLogLevel = AdjustLogLevel.Verbose;
 
-        void Start()
+        [Tooltip("If true, automatically ask for ATT consent (iOS) on initialize. If false, you have to manually call CheckForNewAttStatus() after asking for ATT consent.")]
+        [SerializeField] bool askTrackingConsentOnInit = false;
+
+        static AdjustWrapper instance;
+
+        void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else if (instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            if (initializeAutomatically)
+            {
+                Init();
+            }
+        }
+
+        public void Init()
         {
             AdjustEnvironment environment = AdjustEnvironment.Production;
             if (Debug.isDebugBuild)
@@ -26,6 +50,10 @@ namespace Omnilatent.AdjustUnity
             config.setUrlStrategy(AdjustConfig.AdjustUrlStrategyIndia);
             Adjust.start(config);
 
+            if (askTrackingConsentOnInit)
+            {
+                RequestAttConsent();
+            }
             //Does not need to check user country from India, use strategy India by default for everyone
             /*LocationUtils.GetUserCountryAsync((LocationUtils.IpApiData ipData) =>
             {
@@ -35,6 +63,40 @@ namespace Omnilatent.AdjustUnity
                 }
                 Adjust.start(config);
             });*/
+        }
+
+        public static void CheckForNewAttStatus(bool statusIsNotDetermined)
+        {
+            if (statusIsNotDetermined)
+            {
+                RequestAttConsent();
+            }
+            else
+            {
+                Adjust.checkForNewAttStatus();
+            }
+        }
+
+        public static void RequestAttConsent()
+        {
+            Adjust.requestTrackingAuthorizationWithCompletionHandler((status) =>
+            {
+                switch (status)
+                {
+                    case 0:
+                        // ATTrackingManagerAuthorizationStatusNotDetermined case
+                        break;
+                    case 1:
+                        // ATTrackingManagerAuthorizationStatusRestricted case
+                        break;
+                    case 2:
+                        // ATTrackingManagerAuthorizationStatusDenied case
+                        break;
+                    case 3:
+                        // ATTrackingManagerAuthorizationStatusAuthorized case
+                        break;
+                }
+            });
         }
 
         public static void LogEvent(string eventToken)
