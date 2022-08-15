@@ -14,6 +14,8 @@ namespace Omnilatent.AdjustUnity
         [Tooltip("If true, automatically ask for ATT consent (iOS) on initialize. If false, you have to manually call CheckForNewAttStatus() after asking for ATT consent.")]
         [SerializeField] bool askTrackingConsentOnInit = false;
 
+        [SerializeField] bool logConsoleDebugBuild = true;
+
         static AdjustWrapper instance;
 
         void Awake()
@@ -127,8 +129,10 @@ namespace Omnilatent.AdjustUnity
         public static void TrackRevenueAdmob(double amount, string currencyCode)
         {
             AdjustAdRevenue adRevenue = new AdjustAdRevenue(AdjustConfig.AdjustAdRevenueSourceAdMob);
-            adRevenue.setRevenue(amount / 1000000f, currencyCode);
+            double finalRevenue = amount / 1000000f;
+            adRevenue.setRevenue(finalRevenue, currencyCode);
             Adjust.trackAdRevenue(adRevenue);
+            LogToConsole($"Adjust tracked Admob revenue: {finalRevenue} {currencyCode}");
         }
 
         public static void TrackRevenueMAX(double amount, string currencyCode, string adRevenueNetwork, string adRevenueUnit, string adRevenuePlacement)
@@ -139,6 +143,15 @@ namespace Omnilatent.AdjustUnity
             adRevenue.setAdRevenueUnit(adRevenueUnit);
             adRevenue.setAdRevenuePlacement(adRevenuePlacement);
             Adjust.trackAdRevenue(adRevenue);
+            LogToConsole($"Adjust tracked MAX revenue: {amount} {currencyCode}-{adRevenueNetwork}-{adRevenueUnit}-{adRevenuePlacement}");
+        }
+
+        static void LogToConsole(string message)
+        {
+            if (Debug.isDebugBuild && instance.logConsoleDebugBuild)
+            {
+                Debug.Log(message);
+            }
         }
     }
 }
