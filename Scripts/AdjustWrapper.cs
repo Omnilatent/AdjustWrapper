@@ -124,7 +124,10 @@ namespace Omnilatent.AdjustUnity
             Adjust.trackEvent(adjustEvent);
         }
 
-        /// <param name="amount">Amount of revenue</param>
+        /// <summary>
+        /// Track revenue from Admob. Please pass raw amount value from Admob without any changes (DO NOT divide by 1000000).
+        /// </summary>
+        /// <param name="amount">Amount of revenue without modification</param>
         /// <param name="currencyCode">Currency of revenue</param>
         public static void TrackRevenueAdmob(double amount, string currencyCode)
         {
