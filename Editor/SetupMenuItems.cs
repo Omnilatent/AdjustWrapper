@@ -20,7 +20,7 @@ namespace Omnilatent.AdjustUnity.Editor
             if (!File.Exists($"{Application.dataPath}/../{path}"))
             {
                 Debug.Log($"{filename} not found at {path}, attempting to search whole project for {filename}");
-                string[] guids = AssetDatabase.FindAssets($"{filename} l:package");
+                string[] guids = AssetDatabase.FindAssets($"{filename} l:package", new string[] { "Assets", "Packages" });
                 if (guids.Length > 0)
                 {
                     path = AssetDatabase.GUIDToAssetPath(guids[0]);

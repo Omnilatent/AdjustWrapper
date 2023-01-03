@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 5b9fdf7ae4942004fa16ace44751d385
+labels:
+- Package
 DefaultImporter:
   externalObjects: {}
   userData: 
