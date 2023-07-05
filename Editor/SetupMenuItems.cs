@@ -6,10 +6,10 @@ using UnityEngine;
 
 namespace Omnilatent.AdjustUnity.Editor
 {
-    public class SetupMenuItems : MonoBehaviour
+    public class SetupMenuItems
     {
-        [MenuItem("Tools/Omnilatent/Adjust Unity/Import Adjust Assembly Definitions")]
-        public static void ImportNetworkSecurityConfig()
+        // [MenuItem("Tools/Omnilatent/Adjust Unity/Import Adjust Assembly Definitions")]
+        public static void ImportRequiredFiles()
         {
             string path = GetPackagePath("Assets/Omnilatent/AdjustWrapper/AdjustAssemblyDefinition.unitypackage", "AdjustAssemblyDefinition");
             AssetDatabase.ImportPackage(path, true);

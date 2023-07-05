@@ -1,3 +1,4 @@
+#if ADJUST_SDK
 using com.adjust.sdk;
 using System.Collections;
 using System.Collections.Generic;
@@ -158,3 +159,4 @@ namespace Omnilatent.AdjustUnity
         }
     }
 }
+#endif

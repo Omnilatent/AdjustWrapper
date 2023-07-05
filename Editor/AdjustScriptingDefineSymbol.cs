@@ -4,16 +4,17 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-#if !ADJUST_SDK
+
 namespace Omnilatent.AdjustUnity
 {
     public static class AdjustScriptingDefineSymbol
     {
         const string SYMBOL = "ADJUST_SDK";
 
-        [InitializeOnLoadMethod]
-        private static void Init()
+        // [InitializeOnLoadMethod]
+        public static void Init()
         {
+#if !ADJUST_SDK
             // Get current defines
             string defineSymbolString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
             // Split at ;
@@ -30,7 +31,7 @@ namespace Omnilatent.AdjustUnity
 
                 Debug.Log($"Scripting Define Symbol '{SYMBOL}' was added.");
             }
+#endif
         }
     }
 }
-#endif
